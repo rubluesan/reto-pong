@@ -59,12 +59,17 @@ function move_ball() {
 
 }
 
-let intervalId = null;
+let intervalUpId = null;
+let intervalDownId = null;
 
 function stop_paddle(e) {
     e.preventDefault()
-    clearInterval(intervalId);
-    intervalId = null;
+    
+    if (e.keyCode == 56) {
+        clearInterval(intervalUpId);
+    } else if (e.keyCode == 50) {
+        clearInterval(intervalDownId);
+    }
 }
 
 function move_paddle(e) {
@@ -72,12 +77,14 @@ function move_paddle(e) {
 
     if (e.repeat) return;
 
-    clearInterval(intervalId)
+    
     // console.log("tecla pulsada: " + pkey.which);  
     if (e.keyCode == 56) {
-        intervalId = setInterval(move_up, 20);
+        clearInterval(intervalDownId);
+        intervalUpId = setInterval(move_up, 20);
     } else if (e.keyCode == 50) {
-        intervalId = setInterval(move_down, 20);
+        clearInterval(intervalUpId);
+        intervalDownId = setInterval(move_down, 20);
     }
     
 }
