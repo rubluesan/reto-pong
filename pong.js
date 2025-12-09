@@ -1,13 +1,13 @@
 const paddle = document.getElementById("paddle");
 const ball = document.getElementById("ball");
 
-const ball_radius = window.prompt("Introduce el radio de la bola");
+const ball_radius = 20;
 ball.style.width = 2 * ball_radius + "px";
 ball.style.height = 2 * ball_radius + "px";
 ball.style.borderRadius = ball_radius + "px";
 
-var velocity_x = 15;
-var velocity_y = -15;
+var velocity_x = 10;
+var velocity_y = -10;
 
 // //Add onkeypress handler
 // document.onkeypress = move_paddle;
@@ -19,7 +19,7 @@ document.addEventListener("keydown", move_paddle);
 document.addEventListener("keyup", stop_paddle);
 
 // Move ball
-var ball_movement = setInterval(move_ball, 25);
+var ball_movement = setInterval(move_ball, 15);
 
 function move_ball() {
 
