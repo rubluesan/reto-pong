@@ -59,6 +59,7 @@ main{
     padding: 3rem;
     justify-content: center;
     align-items: center;
+    flex:1;
 }
 
 .menu-panel{
@@ -73,9 +74,17 @@ main{
 
 
 #menu {
-    background-color: var(--ui-color);
+    margin-top: 3rem;
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+#menu li {
+    padding: 1rem;
+}
+
+#menu li:hover{
+    background-color: var(--ui-color);
 }
