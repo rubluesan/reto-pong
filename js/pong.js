@@ -11,11 +11,30 @@ let velocity_y;
 
 let ball_movement = null;
 
+let players;
+
 
 function initGame(config) {
     gamePanel = document.getElementById("game-panel");
-    paddle = document.getElementById("paddle");
+    paddle = document.getElementById("paddle1");
     ball = document.getElementById("ball");
+
+    players = [];
+
+    const paddle1 = document.getElementById("paddle1");
+
+    // Jugador 1
+    players.push(new Player(config.player1, paddle1));
+
+    // Jugador 2 SOLO si hay 2 jugadores
+    if (config.players === 2) {
+        const paddle2 = document.createElement("div");
+        paddle2.id = "paddle2";
+        paddle2.classList.add("paddle", "right");
+        gamePanel.appendChild(paddle2);
+
+        players.push(new Player(config.player2, paddle2));
+    }
 
     // Dimensiones del panel
     panelWidth = gamePanel.clientWidth;
@@ -120,5 +139,34 @@ function move_down() {
     let maxDown = panelHeight - paddle.offsetHeight;
     if (newDown <= maxDown) {
         paddle.style.top = (paddle.offsetTop + 10) + "px";
+    }
+}
+
+class Player {
+    constructor({ name, controls }, paddleElement) {
+        this.name = name;
+        this.controls = controls;
+        this.paddle = paddleElement;
+        this.moveInterval = null;
+    }
+
+    moveUp() {
+        let newTop = this.paddle.offsetTop - 10;
+        if (newTop >= 0) {
+            this.paddle.style.top = newTop + "px";
+        }
+    }
+
+    moveDown(panelHeight) {
+        let maxDown = panelHeight - this.paddle.offsetHeight;
+        let newTop = this.paddle.offsetTop + 10;
+        if (newTop <= maxDown) {
+            this.paddle.style.top = newTop + "px";
+        }
+    }
+
+    stop() {
+        clearInterval(this.moveInterval);
+        this.moveInterval = null;
     }
 }

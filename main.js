@@ -152,7 +152,7 @@ async function loadGame(config) {
 
     // Cargamos el JS del juego
     const script = document.createElement("script");
-    script.src = "pong.js";
+    script.src = "js/pong.js";
 
     // Hacemos gamePanel visible
     gamePanel.style.display = "block";
