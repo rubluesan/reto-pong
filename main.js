@@ -27,16 +27,18 @@ function pauseTrack(index) {
 let soundsEnabled = false;
 
 const soundPool = {
-    hover: new Audio("assets/sounds/Mouth_Special_00.mp3"),
+    hover: new Audio("assets/sounds/001_Hover_01.wav"),
     click: new Audio("assets/sounds/Click_Electronic_04.mp3"),
     back: new Audio("assets/sounds/Mouth_Special_00.mp3"),
     start: new Audio("assets/sounds/Mouth_Special_00.mp3"),
+    move: new Audio("assets/sounds/Slide_Sharp_00.mp3"),
+    bounce: new Audio("assets/sounds/Mouth_00.mp3")
 };
 
 function playSound(name) {
     if (!soundsEnabled) return;
     const sound = soundPool[name].cloneNode(); // clona para poder reproducir múltiples a la vez
-    sound.volume = 0.1;
+    sound.volume = 0.2;
     sound.play();
 }
 

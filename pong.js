@@ -44,22 +44,26 @@ function move_ball() {
     //Check Top
     if (ball.offsetTop <= 0) {
         velocity_y = -velocity_y;
+        playSound("bounce");
     }
 
     //Check right
     if (ball.offsetLeft >= (panelWidth - 2 * ball_radius)) {
         velocity_x = -velocity_x;
+        playSound("bounce");
     }
 
     //Check bottom
     if (ball.offsetTop >= (panelHeight - 2 * ball_radius)) {
         velocity_y = -velocity_y;
+        playSound("bounce");
     }
 
     if (ball.offsetLeft <= 90 &&
         (ball.offsetTop >= (paddle.offsetTop - ball_radius)) &&
         (ball.offsetTop <= (paddle.offsetTop + 150 - ball_radius))) {
         velocity_x = -velocity_x;
+        playSound("bounce");
     }
 
     //Check left
@@ -90,6 +94,8 @@ function move_paddle(e) {
     e.preventDefault()
 
     if (e.repeat) return;
+
+    playSound("move");
 
     // console.log("tecla pulsada: " + pkey.which);  
     if (e.keyCode == 56) {
