@@ -1,0 +1,15 @@
+#paddle {
+    width: 40px;
+    height: 150px;
+    position: absolute;
+    top: calc(50% - 75px);
+    left: 50px;
+    background-color: #666666;
+}
+
+#ball {
+    position: absolute;
+    top: calc(50%);
+    left: calc(50%);
+    background-color: #aa0000;
+}

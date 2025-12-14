@@ -79,11 +79,17 @@ const menuPanel = document.getElementById("menu-panel");
 function setupMenuEvents() {
     menuPanel.addEventListener("click", (e) => {
         playSound("click");
+
+        if (e.target.closest("#play-button")) {
+            loadGame(gameConfig);
+        }
+
         if (e.target.closest("#music-switch")) {
             music.muted = !music.muted;
             playTrack(currentTrack);
             document.getElementById("music-switch-value").textContent = music.muted ? "OFF" : "ON";
         }
+
         if (e.target.closest("#sounds-switch")) {
             soundsEnabled = !soundsEnabled;
             document.getElementById("sounds-switch-value").textContent = soundsEnabled ? "ON" : "OFF";
@@ -108,15 +114,56 @@ async function loadMenu(menuFile) {
     menuPanel.innerHTML = await res.text();
 }
 
+
+
+/**
+ * Función para cargar el css de los html que se cargan manera dinámica
+ * @param {*} href 
+ */
+function loadCSS(href) {
+    if (!document.querySelector(`link[href="${href}"]`)) {
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.appendChild(link);
+    }
+}
+
+
 /**
  * TODO
  * @param {*} config 
  */
 async function loadGame(config) {
+    // Ocultar menú
+    document.getElementById("menu-panel").style.display = "none";
+
+    loadCSS("css/pong.css");
+
+    // cargamos el html que hay en pong.html
     const res = await fetch("pong.html");
-    menuPanel.innerHTML = await res.text();
-    // TODO
-    //setupGameEvents();
+    const html = await res.text();
+
+    // Se añade el html de pong.html al game-panel
+    const gamePanel = document.getElementById("game-panel");
+    gamePanel.innerHTML = html;
+
+    // Cargamos el JS del juego
+    const script = document.createElement("script");
+    script.src = "pong.js";
+
+    // Hacemos gamePanel visible
+    gamePanel.style.display = "block";
+
+    // Cuando se carga el script se llama a initGame con la config actual
+    script.onload = () => {
+        if (window.initGame) {
+            window.initGame(config);
+        }
+    };
+
+    // el script del juego se añade al body
+    document.body.appendChild(script);
 }
 
 // Menú inicial

@@ -71,6 +71,14 @@ main {
     max-width: fit-content;
 }
 
+#game-panel {
+    position: relative;
+    height: 600px;
+    min-width: 1024px;
+    max-width: fit-content;
+    border: 2px solid white;
+    overflow: hidden;
+}
 
 #main-menu {
     margin-top: 2rem;
