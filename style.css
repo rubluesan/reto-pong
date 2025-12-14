@@ -16,33 +16,33 @@
 
 /* --- Estilos globales --- */
 
-:root{
+:root {
     --background-primary: #0A0A0A;
     --text-primary: #EDEDED;
     --ui-color: #777777;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    min-height: 100vh;
-    height: 100vh;
+body {
+
     background-color: var(--background-primary);
     color: var(--text-primary);
-    border: 2px solid var(--text-primary);
 
     font-family: "Press Start 2P", system-ui;
     font-weight: 400;
     font-style: normal;
 }
 
-#app-wrapper{
+#app-wrapper {
     display: flex;
     flex-direction: column;
+    border: 2px solid var(--text-primary);
+    min-height: 100vh;
 }
 
 header {
@@ -53,27 +53,27 @@ header {
     align-items: center;
 }
 
-main{
+main {
     display: flex;
     flex-direction: column;
     padding: 3rem;
     justify-content: center;
     align-items: center;
-    flex:1;
+    flex: 1;
 }
 
-.menu-panel{
+.menu-panel {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     max-width: fit-content;
     padding: 1rem;
 }
 
 
-#menu {
+#main-menu {
     margin-top: 3rem;
     list-style: none;
     display: flex;
@@ -81,10 +81,38 @@ main{
     gap: 1rem;
 }
 
-#menu li {
+#main-menu li {
     padding: 1rem;
 }
 
-#menu li:hover{
+#main-menu li:hover {
     background-color: var(--ui-color);
+    cursor: pointer;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-TOP: 2px solid var(--text-primary);
+}
+
+#footer-contact {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+#footer-contact a {
+    color: var(--text-primary);
+}
+
+#footer-contact a:hover {
+    color: var(--ui-color);
+}
+
+.hidden {
+    display: none;
 }
