@@ -49,7 +49,7 @@ header {
     display: flex;
     padding: 1rem;
     border-bottom: 2px solid var(--text-primary);
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -62,19 +62,18 @@ main {
     flex: 1;
 }
 
-.menu-panel {
+#menu-panel {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     max-width: fit-content;
-    padding: 1rem;
 }
 
 
 #main-menu {
-    margin-top: 3rem;
+    margin-top: 2rem;
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -88,6 +87,14 @@ main {
 #main-menu li:hover {
     background-color: var(--ui-color);
     cursor: pointer;
+}
+
+#music-switch:hover {
+    color: red;
+}
+
+#sounds-switch:hover {
+    color: red;
 }
 
 footer {
