@@ -1,5 +1,4 @@
 let gamePanel;
-let paddle;
 let ball;
 
 let panelWidth;
@@ -11,17 +10,17 @@ let velocity_y;
 
 let ball_movement = null;
 
+let matchConfig;
 let players;
 
 
 function initGame(config) {
+    matchConfig = config;
     gamePanel = document.getElementById("game-panel");
-    paddle = document.getElementById("paddle1");
+    const paddle1 = document.getElementById("paddle1");
     ball = document.getElementById("ball");
 
     players = [];
-
-    const paddle1 = document.getElementById("paddle1");
 
     // Jugador 1
     players.push(new Player(config.player1, paddle1));
@@ -59,6 +58,8 @@ function initGame(config) {
 }
 
 function move_ball() {
+    const paddle1 = players[0].paddle;
+
 
     //Check Top
     if (ball.offsetTop <= 0) {
@@ -67,10 +68,29 @@ function move_ball() {
     }
 
     //Check right
-    if (ball.offsetLeft >= (panelWidth - 2 * ball_radius)) {
-        velocity_x = -velocity_x;
-        playSound("bounce");
+    // Rebote derecha si solo 1 jugador
+    if (matchConfig.players === 1) {
+        if (ball.offsetLeft >= panelWidth - 2 * ball_radius) {
+            velocity_x = -velocity_x;
+        }
     }
+
+    if (matchConfig.players === 2) {
+        const paddle2 = players[1].paddle;
+        // Check paddle2
+        if (
+            ball.offsetLeft + 2 * ball_radius >= paddle2.offsetLeft &&
+            ball.offsetTop + 2 * ball_radius >= paddle2.offsetTop &&
+            ball.offsetTop <= paddle2.offsetTop + paddle2.offsetHeight
+        ) {
+            velocity_x = -velocity_x;
+            ball.style.left = paddle2.offsetLeft - 2 * ball_radius + "px";
+            playSound("bounce");
+        }
+
+
+    }
+
 
     //Check bottom
     if (ball.offsetTop >= (panelHeight - 2 * ball_radius)) {
@@ -78,19 +98,30 @@ function move_ball() {
         playSound("bounce");
     }
 
-    if (ball.offsetLeft <= 90 &&
-        (ball.offsetTop >= (paddle.offsetTop - ball_radius)) &&
-        (ball.offsetTop <= (paddle.offsetTop + 150 - ball_radius))) {
+    // Check paddle1
+    if (ball.offsetLeft <= paddle1.offsetLeft + paddle1.offsetWidth &&
+        ball.offsetTop + 2 * ball_radius >= paddle1.offsetTop &&
+        ball.offsetTop <= paddle1.offsetTop + paddle1.offsetHeight) {
         velocity_x = -velocity_x;
+        ball.style.left = paddle1.offsetLeft + paddle1.offsetWidth + "px"; // afuera de la pala
         playSound("bounce");
     }
 
-    //Check left
+
+    //Check paddle1 lose
     if (ball.offsetLeft <= 5) {
         clearInterval(ball_movement);
-        alert("You lose");
+        alert("Player1 loses");
         location.reload();
     }
+
+    // Check paddle2 lose
+    if (players.length === 2 && ball.offsetLeft + 2 * ball_radius >= panelWidth) {
+        clearInterval(ball_movement);
+        alert("Player 2 loses");
+        location.reload();
+    }
+
 
     ball.style.top = (ball.offsetTop + velocity_y) + "px";
     ball.style.left = (ball.offsetLeft + velocity_x) + "px";
