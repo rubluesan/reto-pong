@@ -1,11 +1,19 @@
-#paddle1 {
+.paddle {
     width: 40px;
     height: 150px;
     position: absolute;
     top: calc(50% - 75px);
-    left: 50px;
-    background-color: #666666;
+    background: #666;
 }
+
+#paddle1 {
+    left: 50px;
+}
+
+#paddle2 {
+    right: 50px;
+}
+
 
 #ball {
     position: absolute;

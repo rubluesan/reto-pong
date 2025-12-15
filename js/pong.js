@@ -96,17 +96,14 @@ function move_ball() {
     ball.style.left = (ball.offsetLeft + velocity_x) + "px";
 }
 
-let intervalUpId = null;
-let intervalDownId = null;
 
 function stop_paddle(e) {
     e.preventDefault()
 
-    if (e.keyCode == 56) {
-        clearInterval(intervalUpId);
-    } else if (e.keyCode == 50) {
-        clearInterval(intervalDownId);
-    }
+    players.forEach(player => {
+        if (e.key === player.controls.up) player.stopUp();
+        if (e.key === player.controls.down) player.stopDown();
+    });
 }
 
 function move_paddle(e) {
@@ -116,30 +113,23 @@ function move_paddle(e) {
 
     playSound("move");
 
-    // console.log("tecla pulsada: " + pkey.which);  
-    if (e.keyCode == 56) {
-        clearInterval(intervalDownId);
-        intervalUpId = setInterval(move_up, 20);
-    } else if (e.keyCode == 50) {
-        clearInterval(intervalUpId);
-        intervalDownId = setInterval(move_down, 20);
-    }
-}
+    players.forEach(player => {
+        if (e.key === player.controls.up) {
+            player.stopDown();
+            player.moveIntervalUp = setInterval(
+                () => player.moveUp(),
+                20
+            );
+        }
 
-function move_up() {
-    let newTop = paddle.offsetTop - 10;
-    let maxTop = 0;
-    if (newTop >= maxTop) {
-        paddle.style.top = newTop + "px";
-    }
-}
-
-function move_down() {
-    let newDown = paddle.offsetTop + 10;
-    let maxDown = panelHeight - paddle.offsetHeight;
-    if (newDown <= maxDown) {
-        paddle.style.top = (paddle.offsetTop + 10) + "px";
-    }
+        if (e.key === player.controls.down) {
+            player.stopUp();
+            player.moveIntervalDown = setInterval(
+                () => player.moveDown(panelHeight),
+                20
+            );
+        }
+    });
 }
 
 class Player {
@@ -147,7 +137,8 @@ class Player {
         this.name = name;
         this.controls = controls;
         this.paddle = paddleElement;
-        this.moveInterval = null;
+        this.moveIntervalUp = null;
+        this.moveIntervalDown = null;
     }
 
     moveUp() {
@@ -165,8 +156,18 @@ class Player {
         }
     }
 
-    stop() {
-        clearInterval(this.moveInterval);
-        this.moveInterval = null;
+    stopUp() {
+        if (this.moveIntervalUp) {
+            clearInterval(this.moveIntervalUp);
+            this.moveIntervalUp = null;
+        }
     }
+
+    stopDown() {
+        if (this.moveIntervalDown) {
+            clearInterval(this.moveIntervalDown);
+            this.moveIntervalDown = null;
+        }
+    }
+
 }

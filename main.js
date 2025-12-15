@@ -60,8 +60,8 @@ const gameConfig = {
     player1: {
         name: "PLAYER1",
         controls: {
-            up: "W",
-            down: "S",
+            up: "w",
+            down: "s",
             action: "Space"
         }
     },
