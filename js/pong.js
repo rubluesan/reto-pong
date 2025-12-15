@@ -7,6 +7,7 @@ let panelHeight;
 let ball_radius = 20;
 let velocity_x;
 let velocity_y;
+let ball_speed;
 
 let ball_movement = null;
 
@@ -44,8 +45,10 @@ function initGame(config) {
     ball.style.height = 2 * ball_radius + "px";
     ball.style.borderRadius = ball_radius + "px";
 
-    velocity_x = 10;
-    velocity_y = -10;
+    ball_speed = matchConfig.difficulty === "NORMAL" ? 10 : 12;
+    velocity_x = (Math.random() < 0.5 ? -1 : 1) * ball_speed;
+
+    velocity_y = (Math.random() < 0.5 ? -1 : 1) * ball_speed;
 
     //add onkeydown handler
     document.addEventListener("keydown", move_paddle);
@@ -112,14 +115,14 @@ function move_ball() {
     if (ball.offsetLeft <= 5) {
         clearInterval(ball_movement);
         alert("Player1 loses");
-        location.reload();
+        //location.reload();
     }
 
     // Check paddle2 lose
     if (players.length === 2 && ball.offsetLeft + 2 * ball_radius >= panelWidth) {
         clearInterval(ball_movement);
         alert("Player 2 loses");
-        location.reload();
+        //location.reload();
     }
 
 

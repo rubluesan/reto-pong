@@ -139,6 +139,9 @@ function loadCSS(href) {
 async function loadGame(config) {
     // Ocultar menú
     document.getElementById("menu-panel").style.display = "none";
+    document.querySelector("footer").style.display = "none";
+    document.querySelector("header").style.display = "none";
+    document.getElementById("score-panel").style.display = "flex";
 
     loadCSS("css/pong.css");
 

@@ -71,11 +71,17 @@ main {
     max-width: fit-content;
 }
 
+#score-panel {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 #game-panel {
     position: relative;
-    height: 600px;
     min-width: 1024px;
-    max-width: fit-content;
+    width:100%;
+    min-height: 768px;
     border: 2px solid white;
     overflow: hidden;
 }
